@@ -14,7 +14,7 @@ public class Switch {
 			break;
 		case 1:
 			System.out.println("홀수");
-			break;
+			break; 
 			
 		default:
 			System.out.println("모르겠다");
