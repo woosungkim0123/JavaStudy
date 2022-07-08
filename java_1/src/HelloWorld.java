@@ -54,8 +54,19 @@ public class HelloWorld {
         // 지역 변수
         // 주의 : 다른 변수들과 달리 지역변수는 0으로 자동 초기화 되지않기 때문에 값을 읽기전에 반드시 초기화해줘야한다
 
+        final int score = 100;
+        // score = 200; 에러 발생
+        System.out.println(score);
 
-
+        boolean power = true;
+        char ch = 'A';
+        String str = "ABC";
+        // byte와 short 타입의 리터럴은 없기때문에 byte타입의 변수에 값을저장할 때는 integer type의 리터럴을 사용
+        int i = 100; // 10진수
+        int oct = 0100; // 8진수 => 접두사 0이 붙으면
+        int hex = 0x100; // 0x가 붙으면 16진수
+        int bin = 0b0101; // 접두 0b가 붙으면 2진수
+        // 대소문자 구별안함
 
     }
 }
