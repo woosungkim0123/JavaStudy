@@ -52,7 +52,70 @@ public class Array {
         }
         System.out.println(Arrays.toString(iArr1));
 
+        // String 배열 : 참조형
+        // 참조형의 기본값은 null
+        // 참조형이라서 값이 들어가는 것이 아니라 문자열이 만들어지고 그 주소가 들어가는 것것
+        String [] name = { "Kim", "Park", "Yi" };
 
+        // String(문자열) 클래스
+        // String 클래스 = char[] + 메서드(기능)
+        // String 클래스는 내용을 변경할 수 없다 (읽기만 가능)
+        String e = "a";
+        String f = "b";
+        e = e + f;
+        // 문자열 e가 바뀌는 것 같지만 그렇지 않고 문자열 "ab"가 새로 만들어지고 e 참조변수에 주소가 저장됨
+        System.out.println(e);
+
+        // String 클래스 메서드
+        // charAt
+        String str = "ABCD";
+        char ch = str.charAt(3);
+        System.out.println(ch); // D
+
+        // length
+        System.out.println(str.length()); // 4
+
+        // substring
+        // 문자열의 일부를 뽑아냄, 마지막 인덱스는 포함안됨
+        System.out.println(str.substring(1,4));
+
+        // equals
+        System.out.println(str.equals("ABCD"));
+
+        // toCharArray
+        System.out.println(str.toCharArray()); // String => char[]로 변경할 때
+
+        // 2차원 배열
+        int[][] twoArray = new int[4][3];
+
+        // 2차원 배열 초기화
+        int[][] twoArray1 = {
+                                {1, 2, 3},
+                                {4, 5, 6}
+                            };
+
+        // Arrays(클래스)로 배열 다루기
+        int[][] arr2D = {{11, 12}, {21,22}};
+        System.out.println(Arrays.deepToString((arr2D))); // [[11, 12], [21, 22]]
+
+        // 이차원 배열 같은지 확인
+        String[][] str2D = new String[][]{{"abc", "bcd"}, {"cde", "def"}};
+        String[][] str2D2 = new String[][]{{"abc", "bcd"}, {"cde", "def"}};
+        System.out.println(Arrays.equals(str2D, str2D2)); // false
+        System.out.println(Arrays.deepEquals(str2D, str2D2)); // true
+
+        // 배열 복사
+        // copyOf, copyOfRange
+        int[] arrT1 = {0,1,2,3,4};
+        int[] arrT2 = Arrays.copyOf(arrT1, arrT1.length); // [0, 1, 2, 3, 4]
+        int[] arrT3 = Arrays.copyOf(arrT1, 3); // [0, 1, 2]
+        int[] arrT4 = Arrays.copyOf(arrT1, 7); // [0, 1, 2, 3, 4, 0, 0]
+        int[] arrT5 = Arrays.copyOfRange(arrT1, 2,4); // [2, 3]
+
+        // sort : 정렬
+
+        int[] arrT6 = {3,2,0,1,4};
+        Arrays.sort(arrT6); // 오름차순 정렬
 
     }
 }
