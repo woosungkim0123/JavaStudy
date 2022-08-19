@@ -45,5 +45,14 @@ public class Array {
         // 배열의 내용을 문자열로 만들어서 반환(toString), println은 문자열을 출력할 뿐
         System.out.println(Arrays.toString(c));
 
+        // 배열에 랜덤값 넣기
+        int[] iArr1 = new int[10];
+        for (int i = 0; i < iArr1.length; i++){
+            iArr1[i] = (int)(Math.random()*10) + 1;
+        }
+        System.out.println(Arrays.toString(iArr1));
+
+
+
     }
 }
