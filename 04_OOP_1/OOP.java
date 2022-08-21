@@ -126,7 +126,7 @@ public class OOP {
         {
             // 클래스 영역 : 선언문만 가능 (변수 선언, 메서드 선언만 가능, 순서 상관 X)
             int iv; // 인스턴스 변수(instance variable)
-            static int cv; // 클래스 변수(static변수, 공유변수) = static + iv
+            // static int cv; 클래스 변수(static변수, 공유변수) = static + iv
 
             // 메서드 선언 + 메서드 정의({}부분)
             void method()
@@ -156,8 +156,8 @@ public class OOP {
             String kind;
             int number;
 
-            static int width = 100;
-            static int height = 250;
+            // static int width = 100;
+            // static int height = 250;
         }
         // 사용방법
         Card cd = new Card();
@@ -165,12 +165,58 @@ public class OOP {
         cd.number = 300;
 
         // 사용은 가능하지만 사용하지말기(권장안함) - 참조변수
-        cd.width = 200;
-        cd.height = 300;
+        // cd.width = 200;
+        // cd.height = 300;
         // 이 방식으로 사용하기 - 클래스이름
-        Card.width = 200;
-        Card.height = 300;
+        // Card.width = 200;
+        // Card.height = 300;
 
 
+        // 메서드
+        // 장점
+        // 코드 중복 줄일 수 있음, 관리 쉬움, 재사용성, 간결해서 이해하기 쉬움움        // 반환타입(출력) 메서드 이름 매개변수선언(입력)
+        // 메서드는 클래스 안에 있어야하고 함수는 클래스 독립적
+        // 메서드는 한 가지 기능만 수행하도록 작성 => 의미있는 단위로 나눠야 재사용성 높아짐
+        class Test {
+            int add(int x, int y) { // 선언부
+                int result = x + y; // 구현부
+                return result;      // 구현부부            }
+            }
+            int max(int a, int b) {
+                if(a > b) { // 이 부분만 적으면 return 에러
+                    return a;
+                } else {
+                    return b;
+                }
+            }
+        }
+        // void 메서드의 경우 return 생략가능 => 컴파일러가 자동으로 생성
+        // 자동형변환이 이루어질 수 있는 타입들은 다 반환값으로 가능
+        // int 의 경우 char, byte, short
 
-   }}
+        // 호출스택(call stack)
+        // 메서드 수행에 필요한 메모리가 제공되는 공간
+        // 메서드가 호출되면 호출스택에 메모리 할당. 종료되면 해제
+        // 아래 있는 메서드가 위의 메서드를 호출한 것(맨위 메서드 하나만 실행 중. 나머지는 대기 상태)
+        // 쓰레드마다 스택을 가지고 있음
+
+
+        // 기본형 매개변수 : 변수의 값을 읽기만 할 수 있다
+        class Data { int x; }
+        Data d = new Data(); // 객체 생성 => 메모리에 올라감 => 메모리 주소를 d에 담음(참조변수)
+        d.x = 10; // 메모리 주소에 있는 x 변경
+        System.out.println("main() : x = " + d.x);
+        change(d.x);
+        System.out.println("After change(d.x)");
+        System.out.println("main() : x = " + d.x); // 메모리 주소에 있는 x 출력
+
+        // 참조형 매개변수 : 변수의 값을 읽고 변경할 수 있다.
+
+
+   }
+    static void change(int x){ // 기본형 매개변수라 읽기만 가능
+        x = 1000; // lv(지역변수를 변경한 것)
+        System.out.println("change() : x = " + x);
+        // 끝나고 change는 call stack에서 사라짐
+    }
+}
