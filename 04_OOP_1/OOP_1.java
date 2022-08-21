@@ -1,4 +1,4 @@
-public class OOP {
+public class OOP_1 {
     public static void main(String[] args) {
         // 객체지향언어(Object Oriented Programing) = 프로그래밍 언어 + 객체지향개념(규칙)
 
@@ -202,7 +202,7 @@ public class OOP {
 
 
         // 기본형 매개변수 : 변수의 값을 읽기만 할 수 있다
-        class Data { int x; }
+
         Data d = new Data(); // 객체 생성 => 메모리에 올라감 => 메모리 주소를 d에 담음(참조변수)
         d.x = 10; // 메모리 주소에 있는 x 변경
         System.out.println("main() : x = " + d.x);
@@ -211,12 +211,38 @@ public class OOP {
         System.out.println("main() : x = " + d.x); // 메모리 주소에 있는 x 출력
 
         // 참조형 매개변수 : 변수의 값을 읽고 변경할 수 있다.
+        Data2 d2 = new Data2();
+        d2.x = 10;
+        System.out.println("main() : x = " + d2.x);
+        change2(d2);
+        System.out.println("After change2(d2)");
+        System.out.println("main() : x = " + d2.x); // 메모리 주소에 있는 x 출력
 
+        // 참조형 반환타입
+        Data3 da = new Data3();
+        da.x = 10;
 
+        Data3 da2 = copy(da); // static 메서드이고 같은 클래스 안에서 있어서 호출할 때 앞에 참조변수가 없음
+        System.out.println("da.x = " + da.x);
+        System.out.println("da2.x = " + da2.x);
    }
+   // static 메서드는 객체 생성없이 호출 가능
+
     static void change(int x){ // 기본형 매개변수라 읽기만 가능
         x = 1000; // lv(지역변수를 변경한 것)
         System.out.println("change() : x = " + x);
         // 끝나고 change는 call stack에서 사라짐
     }
+    static void change2(Data2 d2) {
+        d2.x = 1000;
+        System.out.println("change() : x = " + d2.x);
+    }
+    static Data3 copy(Data3 da) {
+        Data3 tmp = new Data3();
+        tmp.x = da.x;
+        return tmp;
+    }
 }
+class Data { int x; }
+class Data2 { int x; }
+class Data3 { int x; }
