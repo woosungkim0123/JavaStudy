@@ -227,5 +227,46 @@ public class Basic {
         // 지시자는 한번에 여러개 사용가능. 값의 개수도 지시자의 개수만큼 적어줘야함
         // \n(개행문자), %n(os에 관계없이 개행문자) : 줄바꿈 => 가능하면 %n 사용
         System.out.printf("age:%d year:%d\n", 14, 2017);
+
+        // 출력될때 접두사는 안 나옴, 나오게 하려면 지시자에 #
+        // 지시자 X를 대문자로 나오면 접두사와 F가 모두 대문자로 나옴
+        System.out.printf("%#o", 15); // 017
+        System.out.printf("%#x", 15); // 0xf
+        System.out.printf("%#X", 15); // 0XF
+
+        float fl = 123.4567890f;
+        System.out.printf("%f", fl); // 123.456787 소수점 아래 6자리 (정밀도 7자리, 87은 의미없음)
+        // 즉 double로 변경해야함
+        System.out.printf("%e", fl); // 1.234568e+02 지수형식 (e+02는 10^2)
+        System.out.printf("%g", 123.456789); // 123.457(7자리) 간략한 형식
+        System.out.printf("%g", 0.00000001); // 1.00000e-8 간략한 형식
+
+        // 출력결과가 마지막이 9가 아니라 7이 출력되는데 ⇒ 정밀도
+        // float의 정밀도는 7자리 ⇒ 앞 7자리까지만 값이 정확. 나머지 두자리는 정확하지않음(의미없는 숫자)
+        // float보다 double을 사용하는게 좋음
+        // e는 지수형식으로 출력. e+02는 10^2을 의미
+        // 지시자 f와 e로 출력했을 때 값이 조금 다름
+        // 실제로 저장된 값은 같은데 마지막 값이라서 반올림해서 보여주기 때문
+        // 지시자 g는 f처럼 출력해서 보여주고 지수형태로 표현하는게 더 간략하다고 판단되면 지시자e와 같은 형태로 출력함
+        // 실수 지시자는 기본적으로 f를 많이 사용하고 숫자에 0이 많이 들어가면 e를 사용
+
+        // println이나 prinf는 객체를 생성하지않고도 사용할 수 있었음
+
+        System.out.printf("[%5d]%n", 10); // [   10]
+        System.out.printf("[%-5d]%n", 10); // [10   ] - : 왼쪽정렬
+        System.out.printf("[%05d]%n", 10); // [00010]
+
+        // %전체자리.소수점아래자리f
+        double da = 1.23456789;
+        System.out.printf("d=%14.10f%n", da);//  공백공백1.2345678900
+        // 앞 빈자리는 공백, 뒷 빈자리는 0으로 채움
+
+        String url = "www.codechobo.com";
+        System.out.printf("[%s]%n", url); // %s 안에 url을 집어넣음
+        System.out.printf("[%20s]%n", url); // 공백
+        System.out.printf("[%-20s]%n", url); // 왼쪽
+        System.out.printf("[%.8s]%n", url); // 부분출력
+
+
     }
 }
