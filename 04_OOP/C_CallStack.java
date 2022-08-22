@@ -36,7 +36,7 @@ public class C_CallStack {
     static void change(int x){ // 기본형 매개변수라 읽기만 가능
         x = 1000; // lv(지역변수를 변경한 것)
         System.out.println("change() : x = " + x);
-        // 끝나고 change는 callS tack에서 사라짐
+        // 끝나고 change는 callStack에서 사라짐
     }
     static void change2(Data d2) {
         d2.x = 1000;
