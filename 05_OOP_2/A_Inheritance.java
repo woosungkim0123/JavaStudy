@@ -36,9 +36,11 @@ public class A_Inheritance {
         }
 
         모든 클래스는 Object 클래스에 정의된 11개의 메서드를 상속받는다.(toString(), equals(Object obj), hashCode(), ...)
-        
         */
-
+        Tv t = new Tv();
+        // 두개 결과 값이 같음 => println에 참조변수가 들어오면 내부적으로 toString을 호출함
+        System.out.println(t.toString()); // Object 클래스를 상속 받기 때문에 사용가능
+        System.out.println(t);
     }
 }
 // 이 두클래스를 상속관계에 있다고 한다.
