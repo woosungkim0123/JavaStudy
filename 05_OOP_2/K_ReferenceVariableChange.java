@@ -23,6 +23,21 @@ public class K_ReferenceVariableChange {
         // 실제 가리키는 객체의 갯수가 4개 이기 때문에 4개를 넘어서면 안됨
         // 형변환은 가능 하지만 실제 인스턴스 갯수가 4개 이기 때문에 형변환을 하면 안된다.
         // 결론 : 참조변수 간의 형변환이 중요한 것이 아니라 실제 가리키는 객체가 무엇인지가 중요
+
+        /*
+        instanceof 연산자
+
+        참조변수의 형변환 가능여부 확인에 사용. 가능하면 true 반환
+        1. 형변환 가능한지 확인 (instanceof) => 반드시 하기
+        2. 형변환
+         */
+
+    }
+    void dowork(Car c) { // Car c에 new Car(), new FireEngine(), new Ambulance() 가 들어올 수 있음
+        if (c instanceof FireEngine) { // 1. 형변환 가능한지 확인 => Ambulance는 형제관계라서 안됨
+            FireEngine f1 = (FireEngine) c; // 2. 형변환 => 형변환 이유 : 인스턴스 원래 기능을 모두 사용하려고, c는 water 호출 안되니까
+            f1.water();
+        }
     }
 }
 
@@ -32,5 +47,10 @@ class Car {
 class FireEngine extends Car {
     // 1개
     void water() {
+    }
+}
+class Ambulance extends Car {
+    // 1개
+    void soundUp() {
     }
 }
