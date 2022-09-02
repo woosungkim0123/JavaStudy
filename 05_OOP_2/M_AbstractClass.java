@@ -16,7 +16,6 @@ public class M_AbstractClass {
 
     }
 }
-
 abstract class Player {
     boolean pause;
     int currentPos;
@@ -38,7 +37,9 @@ abstract class Player {
 
 }
 class AudioPlayer extends Player {
+    @Override
     void play(int pos) {/* 내용 생략*/} // 추상 메서드를 구현
+    @Override
     void stop() {/* 내용 생략*/} // 추상 메서드를 구현
 }
 
