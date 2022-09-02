@@ -14,7 +14,27 @@ public class M_AbstractClass {
 
         // 추상메서드는 꼭 필요하지만 자손마다 다르게 구현될 것으로 예상되는 경우 사용
 
-    }
+        /*
+        추상 클래스의 작성
+
+        여러 클래스에 공통적으로 사용될 수 있는 추상클래스를 바로 작성하거나 기존 클래스의 공통 부분을 뽑아서 추상클래스를 만든다.
+
+        추상화(불명확) <--> 구체화(명확)
+
+        구체적인 것이 좋지만 때로는 불명확한 것이 좋을 때도 있음
+        (예 : 말을 애매하게 해놓으면 피해나갈 구멍이 생김)
+
+        추상화된 코드는 구체화된 코드보다 유연하다. 변경에 유리
+        GregorianCalendar cal = new GregorianCalendar(); => 구체적
+
+        Calendar cal = Calendar.getInstance() => 추상적
+        (추상클래스)             (Calendar 자손 객체 반환)
+
+        getInstance 메서드가 뭘 반환할지 모름(불분명) => 추상화화
+        */
+
+
+   }
 }
 abstract class Player {
     boolean pause;
