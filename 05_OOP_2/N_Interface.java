@@ -23,10 +23,7 @@ public class N_Interface {
 
     추상클래스는 extends(상속)를 사용해서 완성하는데 인터페이스는 implements(구현)을 사용해서 완성
     implements 사용한다는 것 빼고 추상클래스 완성하는거랑 똑같음
-
     */
-
-
 }
 
 interface PlayingCard {
@@ -38,13 +35,11 @@ interface PlayingCard {
     String getCardKind(); // public abstract 생략 가능
 
 }
-
 class Unit {}
 interface Fightable {
     void move(int x, int y);
     void attack(Unit u);
 }
-
 // Fighter 클래스는 Fightable 인터페이스를 구현했다.
 class Fighter implements Fightable {
     public void move(int x, int y) {}
@@ -54,3 +49,4 @@ class Fighter implements Fightable {
 abstract class Fighter1 implements Fightable {
     public void move(int x, int y) {}
 }
+
