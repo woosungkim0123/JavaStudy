@@ -21,17 +21,38 @@ public class R_InnerClass {
         final (상수) 인 경우에는 static 가능(많이 붙임)
         => Card 예시에서 하트와 숫자 같은 경우는 한번 정해지면 변경되면 안되서 final 붙이지만 static은 불가, 카드마다 달라야해서
         => CARD_NUM 같은건 상수에 static 붙임(카드 마다 다른 값이 아닌 항상 고정), 상수가 두가지 케이스 있음
-
-        09:00
         */
+        
+        System.out.println(InstanceInner.CON);
+        System.out.println(StaticInner.cv);
+        // System.out.println(LocalInner.CONST); 에러, 지역 내부 클래스의 static 상수는 메서드 내에서만 사용가능
+
+        /*
+        인스턴스 멤버가 static 멤버 사용은 가능, 반대는 불가
+        */
+
+    }
+    class InstanceInner {
+        // static int cv = 300; static 변수 선언 불가
+        final static int CON = 100;
+    }
+    static class StaticInner {
+        int iv = 200;
+        static int cv = 200;
+    }
+    void myMethod() {
+        class LocalInner {
+            // static int cv = 300; 불가
+            final static int CONST = 300;
+        }
     }
 }
 
 class A { // B의 외부 클래스
     int i = 100;
     class B { // A의 내부 클래스스
-        // 객체생성없이 A의 멤버 접근 가능
-        void method() {
+            // 객체생성없이 A의 멤버 접근 가능
+            void method() {
             System.out.println(i);
         }
     }
@@ -42,4 +63,3 @@ class A { // B의 외부 클래스
         class LocalInner {} // lv와 비슷
     }
 }
-
