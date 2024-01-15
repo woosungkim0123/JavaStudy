@@ -1,10 +1,10 @@
-# StreamMain
+# Stream
 
 ## 개념
 
-StreamMain: 데이터의 흐름
+Stream: 데이터의 흐름
 
-StreamMain API(Java): 데이터의 흐름을 처리하는데 사용되는 파이프라인. 즉, 연속된 데이터를 처리하는 연산들의 모임
+Stream API(Java): 데이터의 흐름을 처리하는데 사용되는 파이프라인. 즉, 연속된 데이터를 처리하는 연산들의 모임
 
 ## 특징
 
