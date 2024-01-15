@@ -1,4 +1,4 @@
-public class ThreadMain {
+public class A_ThreadMain {
 
     public static void main(String[] args) throws InterruptedException {
         System.out.println("main Thread : " + Thread.currentThread().getName());

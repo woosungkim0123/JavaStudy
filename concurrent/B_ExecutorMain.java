@@ -3,7 +3,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class ExecutorMain {
+public class B_ExecutorMain {
     public static void main(String[] args) {
         /**
          * ExecutorService는 Executor 인터페이스를 구현한 클래스로, 스레드를 생성하고 관리하는 기능을 제공한다
