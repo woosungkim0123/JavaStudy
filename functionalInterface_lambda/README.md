@@ -1,4 +1,4 @@
-# 함수형 인터페이스, 람다
+# 함수형 인터페이스
 
 ## 개념
 
@@ -161,3 +161,248 @@ public class Person {
     }
 }
 ```
+
+## 기본 제공 함수형 인터페이스
+
+### Function<T, R>
+
+T 타입을 받아서 R 타입을 리턴하는 함수형 인터페이스입니다.
+
+- R apply(T t)
+- 조합용으로 andThen, compose 메서드를 제공합니다.
+
+### BiFunction<T, U, R>
+
+T 타입과 U 타입을 받아서 R 타입을 리턴하는 함수형 인터페이스입니다.
+
+- R apply(T t, U u)
+
+### Consumer<T>
+
+T 타입을 받아서 아무것도 리턴하지 않는 함수형 인터페이스입니다.
+
+- void accept(T t)
+- 조합용으로 andThen 메서드를 제공합니다.
+
+### Supplier<T>
+
+값을 받지않고 T 타입의 값을 제공하는 함수형 인터페이스입니다. (어떤 값을 하나 가져오는 인터페이스)
+
+- T get
+
+### Predicate<T>
+
+T 타입을 받아서 boolean을 리턴하는 함수형 인터페이스입니다.
+
+- boolean test(T t)
+- 조합용으로 and, or, negate 메서드를 제공합니다. negate는 반대로 바꿔주는 메서드입니다.
+
+### UnaryOperator<T>
+
+Function<T, R>의 특수한 형태로, 입력값 하나를 받아서 동일한 타입을 리턴하는 함수형 인터페이스입니다.
+
+- T apply(T t)
+
+### BinaryOperator<T>
+
+BiFunction<T, U, R>의 특수한 형태로, 동일한 타입의 입력값 두개를 받아서 동일한 타입을 리턴하는 함수형 인터페이스입니다.
+
+- T apply(T t1, T t2)
+
+# 람다
+
+## 람다 표현식
+
+람다 표현식은 메서드로 전달할 수 있는 익명 함수를 단순화한 것입니다.
+
+## 인자 표현
+
+- 인자가 없을 때: () -> {}
+- 인자가 한 개일 때: (one) -> {}, one -> {}
+- 인자가 여러 개일 때: (one, two) -> {}
+- 인자 타입은 생략 가능(컴파일러가 타입 추론)
+
+## 변수 캡처
+
+변수 캡처는 익명 클래스나 내부 클래스에서 사용되는 개념입니다. 과거에는 참조하는 외부 변수에 final을 명시해야 했지만, 자바 8부터는 'effective final' 덕분에 final 키워드를 생략할 수 있게 되었습니다. 
+
+'effective final'은 사실상 final 속성을 가진 변수를 의미합니다. 이는 final 키워드를 사용하지 않아도 람다 표현식이나 익명 클래스에서 참조할 수 있는 변수를 말합니다.
+
+### 값이 변경되는 경우
+
+값이 변경될 경우 내부 클래스, 익명 클래스, 람다에서 컴파일 에러가 발생합니다. 외부 변수를 참조하는 내부 클래스, 익명 클래스, 람다에서는 변수가 사실상 final, 즉 변경되지 않는 상태여야 합니다. 변수 값이 변경되면, 이 변수는 더 이상 'effective final'이 아니게 되므로 내부 클래스, 익명 클래스, 람다 표현식 내에서 참조할 수 없게 됩니다. 이러한 제약은 동시성 문제를 방지하고, 불변성을 유지하기 위해 필요합니다.
+
+```java
+private void run() {
+    int baseNumber = 10;
+    IntConsumer printInteger = (i) -> {
+        System.out.println(i + baseNumber); // 에러
+    };
+    
+    baseNumber++ // effective final이 아니게 되어서
+}
+```
+
+## 쉐도잉
+
+쉐도잉은 서로 다른 스코프에 위치한 동일한 이름의 변수 중 하나가 다른 하나를 가리는 현상을 말합니다.
+
+### 내부 클래스
+
+```java
+private void run() {
+    int baseNumber = 10; // 외부 변수
+
+    class LocalClass {
+        void printBaseNumber() {
+            int baseNumber = 11; // 내부 변수
+            System.out.println(baseNumber); // 11 출력, 내부 변수가 외부 변수를 가림
+        }
+    }
+}
+```
+
+### 익명 클래스
+
+```java
+private void run() {
+    int baseNumber = 10;
+
+    Consumer<Integer> integerConsumer = new Consumer<Integer>() {
+        @Override
+        public void accept(Integer baseNumber) {
+            System.out.println(baseNumber); // 여기서 baseNumber는 파라미터
+        }
+    };
+}
+```
+
+### 람다
+
+람다 표현식에서는 쉐도잉이 발생하지 않습니다. 람다는 같은 스코프에 속하기 때문에 같은 이름의 변수를 재정의할 수 없습니다.
+
+```java
+private void run() {
+    int baseNumber = 10;
+
+    IntConsumer printInteger = (i) -> {
+        // int baseNumber = 0; // 에러 발생, 같은 스코프 내에 동일 이름 변수 재정의 불가
+        System.out.println(i + baseNumber);
+    };
+}
+```
+
+## 메서드 레퍼런스
+
+람다 표현식을 사용하는 대신, 더 간결하게 메서드 레퍼런스를 사용할 수 있습니다. 메서드 레퍼런스는 기존의 메서드나 생성자를 직접 호출하는 것을 말합니다.
+
+### static 메소드 참조
+
+`타입::static 메소드`
+
+```java
+public class Greeting {
+    public static String hi(String name) {
+        return "hi " + name;
+    }
+};
+
+UnaryOperator<String> hi = Greeting::hi;
+System.out.println("hi.apply() = " + hi.apply("ho"));
+```
+
+### 특정 객체의 인스턴스 메서드 참조
+
+`객체 레퍼런스::인스턴스 메소드`
+
+```java
+public class Greeting {
+    public String hello(String name) {
+        return "hello " + name;
+    }
+};
+
+Greeting greeting = new Greeting();
+UnaryOperator<String> hi2 = greeting::hello;
+```
+
+### 빈 생성자 참조, 입력 값이 있는 생성자 참조
+
+`타입::new`
+
+```java
+
+public class Greeting {
+    private String name;
+
+    public Greeting() {
+    }
+
+    public Greeting(String name) {
+        this.name = name;
+    }
+};
+
+Supplier<Greeting> newGreeting = Greeting::new;
+Greeting greeting1 = newGreeting.get();
+
+Function<String, Greeting> hoGreeting = Greeting::new;
+Greeting ho = hoGreeting.apply("ho");
+```
+
+### 임의 객체의 인스턴스 메서드 참조
+
+`타입::인스턴스 메소드`
+
+주로 컬렉션 정렬 등에 사용
+
+```java
+String[] names = {"ho", "jin", "woo"};
+
+// 1. 익명 클래스
+Arrays.sort(names, new Comparator<String>() {
+    @Override
+    public int compare(String o1, String o2) {
+        return 0;
+    }
+});
+
+// 2. 람다 표현식
+Arrays.sort(names, (s, str) -> s.compareToIgnoreCase(str));
+
+// 3. 메서드 레퍼런스
+Arrays.sort(names, String::compareToIgnoreCase); // String::compareToIgnoreCase는 (x, y) -> x.compareToIgnoreCase(y)와 같습니다.
+```
+
+## 인터페이스 기본 메서드, static 메서드
+
+인터페이스에 새로운 기능을 추가하면, 그 인터페이스를 구현한 클래스를 모두 수정해야 합니다. (추가한 추상 메서드를 구현하지 않았기 때문에)
+
+자바 8부터는 인터페이스에 새로운 기능을 추가하더라도 그 인터페이스를 구현한 클래스를 모두 수정할 필요가 없습니다. 모든 구현체는 해당 기능을 사용할 수 있습니다.
+
+```java
+public interface Foo {
+    void printName();
+
+    /**
+     * @implSpec 
+     * 자세한 설명이 들어가야합니다.
+     */
+    default void printNameUpperCase() {
+        System.out.println(getName().toUpperCase());
+    }
+    
+    // static 메서드는 구현체에서 재정의 할 수 없습니다.
+    static void printAnything() {
+        System.out.println("Foo");
+    }
+}
+```
+
+### 주의사항
+
+- default 메서드는 구현체가 모르게 추가된 기능으로 그만큼 리스크가 있습니다. (@implSpec을 활용한 문서화 추천)
+- Object 클래스의 메서드는 기본 메서드로 제공할 수 없습니다. (eqauls, hasCode)
+- 인터페이스를 상속받는 인터페이스에서 다시 추상 메소드로 변경할 수 있다. (기본 구현체를 제공하고 싶지 않을 때)
+- 구현체가 재정의 할 수도 있습니다.
+- 두개의 인터페이스를 구현한 구현체에서 두 인터페이스에 동일한 디폴트 메서드가 있는 경우는 어떻게 해야할까요? -> 구현체가 재정의해야합니다.
