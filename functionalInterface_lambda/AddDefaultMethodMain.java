@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Spliterator;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class AddDefaultMethodMain {
     public static void main(String[] args) {
@@ -71,5 +73,55 @@ public class AddDefaultMethodMain {
         Comparator<String> comparator = String::compareToIgnoreCase;
         list4.sort(comparator.reversed()); // 다른 조건으로 정렬하고 싶을 때 .thenComparing()를 추가로 사용하면 됩니다.
         list4.forEach(System.out::println);
+
+        // Comparator를 연결하여 응용 가능
+        List<Apple> list5 = new ArrayList<>();
+        list5.add(new Apple("red", 100));
+        list5.add(new Apple("green", 200));
+        list5.add(new Apple("black", 700));
+        list5.add(new Apple("blue", 300));
+        list5.add(new Apple("yellow", 400));
+        list5.add(new Apple("ruby", 400));
+
+        list5.sort(Comparator.comparing(Apple::getWeight)
+                .reversed()
+                .thenComparing(Apple::getColor));
+        list5.forEach(System.out::println);
+
+        // predicate를 사용하여 응용 가능
+        Predicate<Apple> redApple = apple -> apple.getColor().equals("red");
+
+        Predicate<Apple> negate = redApple.negate(); // 빨간 사과가 아닌 사과
+
+        Predicate<Apple> redAndHeavyApple = redApple.and(apple -> apple.getWeight() > 100) // 빨간 사과이면서 무게가 100보다 큰 사과
+                .or(apple -> apple.getColor().equals("green")); // 또는 녹색 사과
+
+
+    }
+
+    static class Apple {
+        private String color;
+        private int weight;
+
+        public Apple(String color, int weight) {
+            this.color = color;
+            this.weight = weight;
+        }
+
+        public String getColor() {
+            return color;
+        }
+
+        public int getWeight() {
+            return weight;
+        }
+
+        @Override
+        public String toString() {
+            return "Apple{" +
+                    "color='" + color + '\'' +
+                    ", weight=" + weight +
+                    '}';
+        }
     }
 }

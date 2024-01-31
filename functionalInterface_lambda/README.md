@@ -411,3 +411,17 @@ public interface Foo {
 - 인터페이스를 상속받는 인터페이스에서 다시 추상 메소드로 변경할 수 있다. (기본 구현체를 제공하고 싶지 않을 때)
 - 구현체가 재정의 할 수도 있습니다.
 - 두개의 인터페이스를 구현한 구현체에서 두 인터페이스에 동일한 디폴트 메서드가 있는 경우는 어떻게 해야할까요? -> 구현체가 재정의해야합니다.
+
+## 함수형 인터페이스를 활용한 다양한 응용
+
+- 다양한 변환 파이프 라인을 만들 수 있습니다.
+- 예시에서는 Function 인터페이스를 사용하여 응용 해보겠습니다.
+
+```java
+Function<String, String> addHeader = Letter::addHeader; // 헤더 추가
+        Function<String, String> transformationPipeline = addHeader
+                .andThen(Letter::checkSpelling) // 철자 검사
+                .andThen(Letter::addFooter); // 푸터 추가
+```  
+
+![함수형 인터페이스 응용 파이프라인](image/functional_interface_pipeline.png)
