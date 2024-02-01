@@ -1,4 +1,6 @@
-public class StudentAttendance2 {
+package common;
+
+public class StudentAttendance {
 
     private Long id;
 
@@ -6,7 +8,7 @@ public class StudentAttendance2 {
 
     private boolean attendance;
 
-    public StudentAttendance2(Long id, String name, boolean attendance) {
+    public StudentAttendance(Long id, String name, boolean attendance) {
         this.id = id;
         this.name = name;
         this.attendance = attendance;
@@ -23,6 +25,4 @@ public class StudentAttendance2 {
     public boolean isAttendance() {
         return attendance;
     }
-
-
 }

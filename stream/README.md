@@ -2,20 +2,62 @@
 
 ## 개념
 
-Stream: 데이터의 흐름
+스트림(stream): 데이터의 흐름
 
-Stream API(Java): 데이터의 흐름을 처리하는데 사용되는 파이프라인. 즉, 연속된 데이터를 처리하는 연산들의 모임
+스트림 API: 데이터의 흐름을 처리하는데 사용되는 파이프라인으로 연속된 데이터를 처리하는 연산들의 모임입니다.
 
 ## 특징
 
-1. 컬렉션과 다르게 데이터를 저장하지 않는다.
-2. 원본 데이터를 변경하지 않고, 연산 결과를 새로운 Stream에 반영함으로써 불변성을 유지합니다
-3. Stream은 컨베이어 벨트처럼 데이터를 한 번만 처리하여 효율적으로 전달합니다.
-4. 손쉽게 병렬 처리할 수 있다
+1. 컬렉션과 다르게 데이터를 저장하지 않습니다.
+2. 원본 데이터를 변경하지 않고, 연산 결과를 새로운 스트림에 반영함으로써 불변성을 유지합니다
+3. 스트림은 컨베이어 벨트처럼 데이터를 한 번만 처리하여 효율적으로 전달합니다.
+4. 손쉽게 병렬 처리할 수 있습니다.
+5. 선언형으로 코드를 구현할 수 있습니다.
+
+### 선언형 프로그래밍
+
+- 선언형 프로그래밍은 프로그램이 수행할 **작업의 결과나 조건을 명시**하는 프로그래밍 스타일입니다.
+이와 대비되는 것이 절차적 또는 명령형 프로그래밍(Imperative Programming)인데, 이는 어떻게 **작업을 수행할 것인지를 명시**하는 방식입니다.
+- SQL은 선언형 프로그래밍의 대표적인 예로써 질의를 작성할 때 어떤 데이터가 필요한지만 명시하고, 데이터를 어떻게 가져올지에 대한 구체적인 방법은 명시하지 않습니다.
+
+```java
+/**
+ * 명령형 프로그래밍
+ */
+List<Dish> lowCaloricDishes = new ArrayList<>();
+// 요소 필터링
+for(Dish d: menu) {
+    if(d.getCalories() < 400) {
+        lowCaloricDishes.add(d);
+    }
+}
+// 정렬
+Collections.sort(lowCaloricDishes, new Comparator<Dish>() {
+    public int compare(Dish d1, Dish d2) {
+        return Integer.compare(d1.getCalories(), d2.getCalories());
+    }
+});
+// 요리 이름 추출
+List<String> lowCaloricDishesName = new ArrayList<>();
+for(Dish d: lowCaloricDishes) {
+    lowCaloricDishesName.add(d.getName());
+}
+```
+
+```java
+/**
+ * 선언형 프로그래밍
+ */
+List<String> lowCaloricDishesName = menu.stream()
+    .filter(d -> d.getCalories() < 400)
+    .sorted(comparing(Dish::getCalories))
+    .map(Dish::getName)
+    .collect(toList());
+```
 
 ## 구성
 
-0개 이상의 중개 연산과 하나의 종료 연산으로 구성된다.
+0개 이상의 중개 연산과 하나의 종료 연산으로 구성됩니다.
 
 ### 생성
 
@@ -34,25 +76,25 @@ Stream API(Java): 데이터의 흐름을 처리하는데 사용되는 파이프�
 
 **루프 퓨전**
 
-서로 다른 연산을 하나의 단일 루프에서 처리하는 것처럼 병합하는 기법
+서로 다른 연산을 하나의 단일 루프에서 처리하는 것처럼 병합하는 기법입니다.
 
 **쇼트 서킷**
 
-결과가 확실한 경우 뒤의 연산을 수행하지 않고 결과를 반환하는 기법 (&&연산에서 처음 표현식이 거짓이면 나머지 표현식을 평가하지 않는 것과 같은 예시)
+- 결과가 확실한 경우 뒤의 연산을 수행하지 않고 결과를 반환하는 기법입니다. 
+- &&연산에서 처음 표현식이 거짓이면 나머지 표현식을 평가하지 않는 것과 같습니다.
 
 ```java
-List<String> list = StreamMain.of("a", "ab", "d_oop", "abcd", "abcde")
-        // 루프 퓨전: filter, map
-        .filter(s -> {
-            System.out.println("filter: " + s);
-            return s.lenght() >= 2;
-        })
-        .map(s -> {
-            System.out.println("map: " + s);
-            return s.toUpperCase();
-        })
-        .limit(2) // 쇼트 서킷
-        .collect(Collectors.toList());
+dishes.stream()
+    .filter(dish -> { // 루프 퓨전: filter, map
+        System.out.println("filter: " + dish.getName());
+        return dish.getCalories() >= 200;
+    })
+     .map(dish -> {
+        System.out.println("map: " + dish.getName());
+        return dish.getName();
+     })
+     .limit(2) // 쇼트 서킷
+     .toList();
 ```
 
 ### 종료 연산
@@ -61,14 +103,25 @@ List<String> list = StreamMain.of("a", "ab", "d_oop", "abcd", "abcde")
 - collect, forEach, reduce, allMatch, nonMatch, findFirst, findAny 등이 있습니다. (allMatch, nonMatch, findFirst, findAny 연산은 쇼트 서킷 연산이 적용될 수 있습니다.)
 - 최종 연산한 스트림은 재사용할 수 없습니다.
 
+![스트림 파이프라인](image/stream_pipeline.png)
+
 ## 장 단점
 
 ### 장점
 
 1. 선언형으로 코드를 구현할 수 있음
     - 간결하고 가독성 향상, 메서드 체이닝 방식으로 연산의 목적과 순서를 명확히 표현할 수 있음 
-    - 내부 반복 사용, 반복 로직은 개발자가 신경쓸 필요없이 어떤 작업을 부여할 것인지 선언적으로 표현하기만 하면됨 
     - 변하는 요구사항에 맞춰 쉽게 대응 가능
+    - 내부 반복을 사용합니다.
+
+**내부 반복과 외부 반복**  
+
+내부 반복과 외부 반복의 차이는 누가 반복문을 제어하는가에 있습니다. 
+
+- 외부 반복은 개발자가 직접 컬렉션의 요소를 반복하면서 작업을 수행합니다.
+- 내부 반복은 컬렉션 내부에서 어떤 작업을 수행할 것인지만 선언하면 됩니다. 
+
+결국 내부 반복도 안에 반복문이 돌아갑니다 대신 개발자가 신경 쓸 필요가 없다는 점이 다릅니다.
 
 2. 병렬처리가 쉬워짐
 
