@@ -9,7 +9,7 @@ Optional은 인터페이스로써 값이 있을 수도 있고 없을 수도 있�
 1. null 체크를 잊어먹는 문제를 방지하기 위해
 
 ```java
-StudentAttendance1 simStudent = new StudentAttendance1(1L, "심XX", true);
+StudentAttendance simStudent = new StudentAttendance(1L, "심XX", true);
 Duration classDuration = simStudent.getProgress().getClassDuration();  // progress가 null인데 메서드를 호출하려고하면 null을 참조할 수 없다고 NullPointerException 에러가 뜨게 됩니다. 
 System.out.println("classDuration = " + classDuration);
 ```
@@ -17,7 +17,7 @@ System.out.println("classDuration = " + classDuration);
 이전에는 이런 상황을 방지하기 위해 아래와 같이 null 체크를 해주었습니다.
 
 ```java
-StudentAttendance1 simStudent = new StudentAttendance1(1L, "심XX", true);
+StudentAttendance simStudent = new StudentAttendance(1L, "심XX", true);
 Progress progress = simStudent.getProgress();
 if (progress != null) {
     System.out.println(progress.getClassDuration());
@@ -60,7 +60,7 @@ Map의 가장 중요한 특징 중 하나가 key가 null이 될 수 없다는 �
 
 ```java
 // 잘못된 예시
-public class StudentAttendance1 {
+public class StudentAttendance {
     
     private Optional<Progress> progress; // 설계의 문제
 }

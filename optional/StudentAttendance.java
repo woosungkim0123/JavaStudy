@@ -1,6 +1,6 @@
 import java.util.Optional;
 
-public class StudentAttendance1 {
+public class StudentAttendance {
 
     private Long id;
 
@@ -10,7 +10,7 @@ public class StudentAttendance1 {
 
     private Progress progress;
 
-    public StudentAttendance1(Long id, String name, boolean attendance) {
+    public StudentAttendance(Long id, String name, boolean attendance) {
         this.id = id;
         this.name = name;
         this.attendance = attendance;
