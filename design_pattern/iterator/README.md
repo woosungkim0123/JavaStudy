@@ -41,6 +41,8 @@ public interface Iterator<E> {
 - Iterator 인터페이스를 구현하여 집합체의 요소를 순회하는 로직을 구현합니다.
 - 예시에서는 FoodListIterator 클래스가 이 역할을 합니다.
 
+![iterator diagram](../image/iterator_diagram.png)
+
 ## 질문
 
 ### 왜 이터레이터 패턴을 사용해야 할까요?
