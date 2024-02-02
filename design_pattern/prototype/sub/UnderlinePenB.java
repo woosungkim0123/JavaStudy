@@ -1,6 +1,5 @@
 package prototype.sub;
 
-import prototype.framework.ProductA;
 import prototype.framework.ProductB;
 
 // 1. ProductB 구현으로 변경합니다.
