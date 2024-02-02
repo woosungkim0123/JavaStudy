@@ -1,11 +1,11 @@
 package prototype.sub;
 
-import prototype.framework.Product;
+import prototype.framework.ProductA;
 
-public class UnderlinePen implements Product {
+public class UnderlinePenA implements ProductA {
     private char ulchar;
 
-    public UnderlinePen(char ulchar) {
+    public UnderlinePenA(char ulchar) {
         this.ulchar = ulchar;
     }
 
@@ -20,10 +20,10 @@ public class UnderlinePen implements Product {
     }
 
     @Override
-    public Product createCopy() {
-        Product p = null;
+    public ProductA createCopy() {
+        ProductA p = null;
         try {
-            p = (Product) clone();
+            p = (ProductA) clone();
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }

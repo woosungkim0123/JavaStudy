@@ -1,11 +1,11 @@
 package prototype.sub;
 
-import prototype.framework.Product;
+import prototype.framework.ProductA;
 
-public class MessageBox implements Product {
+public class MessageBoxA implements ProductA {
     private char decochar;
 
-    public MessageBox(char decochar) {
+    public MessageBoxA(char decochar) {
         this.decochar = decochar;
     }
 
@@ -24,15 +24,15 @@ public class MessageBox implements Product {
     }
 
     @Override
-    public Product createCopy() {
-        Product p = null;
+    public ProductA createCopy() {
+        ProductA p = null;
         try {
             /**
              * clone()은 자기 자신의 복제를 생성하는 메소드
              * - 인스턴스가 가진 필드 값도 그대로 복사됩니다.
              * - Cloneable 인터페이스를 구현해야 사용 가능합니다.
              */
-            p = (Product) clone();
+            p = (ProductA) clone();
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
