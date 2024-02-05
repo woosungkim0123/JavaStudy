@@ -1,8 +1,5 @@
 package factory_method.sub;
 
-import abstract_factory.sub.AndroidPhone;
-import abstract_factory.sub.IPhone;
-
 public class SimplePhoneFactory {
 
     public final Phone create(String type) {
