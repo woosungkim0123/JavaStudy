@@ -7,10 +7,13 @@ public abstract class AbstractDisplay {
 
     // final은 메서드를 오버라이드 할 수 없게 한다.
     public final void display() {
-        open();
+        open(); // 변하는 부분
+
+        // 변하지 않는 부분
         for (int i = 0; i < 5; i++) {
             print();
         }
-        close();
+
+        close(); // 변하는 부분
     }
 }
