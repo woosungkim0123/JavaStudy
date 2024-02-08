@@ -28,3 +28,12 @@
 - 예시에서는 `Caretaker`가 해당 역할을 합니다.
 
 ![메멘토 패턴](../image/memento.png)
+
+## 기타
+
+### Caretaker와 Originator의 역할을 나눌 필요가 있을까?
+
+- Caretaker는 어느 시점에 스냅샷을 찍을지, 언제 실행 취소를 할지를 결정하고 Memento를 저장하는 역할을 합니다.
+- Originator는 Memento를 생성하고 주어진 Memento를 사용하여 자신의 상태를 되돌리는 일을 합니다.
+
+이렇게 서로 역할을 분담한다면 하나에 수정이 생겨도 다른 역할에 영향을 미치지 않기 때문입니다.
